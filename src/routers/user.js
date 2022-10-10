@@ -29,6 +29,7 @@ routes.get('/users', auth, (req, res) => {
         res.send(err)
     })
 })
+// routes.get('/users/:id', auth, (req, res) => res.send(req.user))
 
 routes.get('/users/:id', auth, (req, res) => {
     const _id = req.params.id
@@ -87,8 +88,8 @@ routes.get('/profile', auth, (req, res) => {
 })
 
 const upload = multer({
-    fileFilter(req, file, cb){
-        if(!file.originalname.match(/\.(jpg|png|jpeg|jfif)$/)){
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|png|jpeg|jfif)$/)) {
             return cb(new Error("Please upload (jpg, jpeg, png, jfif) file extention"), null)
         }
         cb(null, true)
@@ -98,8 +99,8 @@ const upload = multer({
 routes.post('/uploadimage', auth, upload.single('images'), (req, res) => {
     req.user.image = req.file.buffer
     req.user.save()
-    .then(data => res.send("Uploaded Successfully"))
-    .catch( e => res.send(e.message))
+        .then(data => res.send("Uploaded Successfully"))
+        .catch(e => res.send(e.message))
 })
 
 module.exports = routes

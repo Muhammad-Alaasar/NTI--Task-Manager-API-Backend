@@ -82,6 +82,7 @@ routes.delete('/task/:id', auth, (req, res) => {
         }).catch(e => res.send(e))
 })
 
+// Get my Task
 routes.get('/:taskId', auth, (req, res) => {
     Task.findById(req.params.taskId)
     .then( data => data.populate('owner'))
